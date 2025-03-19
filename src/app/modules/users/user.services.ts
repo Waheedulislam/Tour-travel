@@ -2,6 +2,7 @@ import { TUser } from './user.inerface';
 import User from './user.modle';
 
 const createUser = async (payload: TUser) => {
+  payload.role = 'admin';
   const result = await User.create(payload);
   return result;
 };

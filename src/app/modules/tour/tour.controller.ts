@@ -21,7 +21,7 @@ const createTours = async (req: Request, res: Response) => {
 };
 const getTours = async (req: Request, res: Response) => {
   try {
-    const result = await tourServices.getTours();
+    const result = await tourServices.getTours(req.query);
 
     res.send({
       success: true,

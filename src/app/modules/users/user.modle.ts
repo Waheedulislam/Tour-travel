@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { TUser } from './user.inerface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const userSchema = new Schema<TUser>({
   name: {
@@ -20,25 +22,47 @@ const userSchema = new Schema<TUser>({
     },
     immutable: true,
   },
+  password: {
+    type: String,
+    required: [true, 'Please enter your valid password'],
+    select: false,
+  },
   age: {
     type: Number,
-    required: [true, 'Please enter your age'],
+    // required: [true, 'Please enter your age'],
   },
   photo: {
     type: String,
   },
   role: {
     type: String,
-    enum: { values: ['user', 'admin'], methods: 'Please provide a valid role' },
+    enum: ['user', 'admin'],
     required: true,
     default: 'user',
   },
+
   userStatus: {
     type: String,
     enum: ['active', 'inactive'],
     required: true,
     default: 'active',
   },
+});
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  next();
+});
+
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
 });
 
 const User = mongoose.model<TUser>('User', userSchema);

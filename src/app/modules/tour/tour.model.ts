@@ -31,7 +31,7 @@ const tourSchema = new Schema<TTour>({
     type: String,
   },
   location: [String],
-  slag: {
+  slug: {
     type: String,
   },
   availableSets: {

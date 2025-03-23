@@ -16,5 +16,25 @@ authRouter.post(
   validateRequest(AuthValidation.loginValidationSchema),
   AuthController.login,
 );
+authRouter.post(
+  '/forget-password',
+  validateRequest(AuthValidation.forgetPasswordSchema),
+  AuthController.forgetPassword,
+);
+authRouter.post(
+  '/reset-password',
+  validateRequest(AuthValidation.resetPasswordSchema),
+  AuthController.resetPassword,
+);
+authRouter.post(
+  '/reset-password',
+  validateRequest(AuthValidation.resetPasswordSchema),
+  AuthController.resetPassword,
+);
+authRouter.post(
+  '/refresh-token',
+  validateRequest(AuthValidation.refreshTokenValidationSchema),
+  AuthController.refreshToken,
+);
 
 export default authRouter;

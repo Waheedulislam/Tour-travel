@@ -4,7 +4,7 @@ type TSuccessResponse<T> = {
   status?: boolean;
   statusCode: number;
   message: string;
-  token?: string;
+  accessToken?: string;
   data: T | T[] | null;
 };
 
@@ -13,7 +13,7 @@ export const sendResponse = <T>(res: Response, data: TSuccessResponse<T>) => {
     success: data.status ?? true,
     statusCode: data.statusCode,
     message: data.message,
-    token: data.token,
+    accessToken: data.accessToken,
     data: data.data,
   });
 };

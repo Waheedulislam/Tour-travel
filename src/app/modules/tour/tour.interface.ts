@@ -1,13 +1,13 @@
 export type TTour = {
   name: string;
   durationHours: number;
-  averageRating: number; // Default value is 5, so it's optional
+  averageRating: number;
   price: number;
   coverImage: string;
-  image: string[]; // Optional array of strings
+  image: string[];
   startDate: Date;
   startLocation: string;
-  location: string[]; // Optional array of locations
-  slag: string;
+  location: string[];
+  slug: string;
   availableSets: number;
 };

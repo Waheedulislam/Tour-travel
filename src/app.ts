@@ -8,12 +8,15 @@ import { globalErrorHandler } from './middleWares/globalErrorHandler';
 import authRouter from './app/modules/auth/auth.route';
 dotenv.config();
 
+import cookieParser from 'cookie-parser';
+
 const app: Application = express();
 
 //parsers
 
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ origin: ['http://localhost:5173'] }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);

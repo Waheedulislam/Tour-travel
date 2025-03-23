@@ -20,9 +20,9 @@ userRouter.post(
   },
   userController.createUser,
 );
-userRouter.get('/', auth('admin', 'user'), userController.getUser);
+userRouter.get('/', auth('admin'), userController.getUser);
 userRouter.get('/:userId', userController.getSingleUser);
-userRouter.patch('/:userId', userController.updateUser);
+userRouter.patch('/:userId', auth('admin'), userController.updateUser);
 userRouter.delete('/:userId', userController.deleteUser);
 
 export default userRouter;

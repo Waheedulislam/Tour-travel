@@ -3,6 +3,7 @@ import catchAsync from '../utils/catchAsync';
 import { JwtPayload } from 'jsonwebtoken';
 import jwt from 'jsonwebtoken';
 import User from '../app/modules/users/user.modle';
+import config from '../app/config';
 
 const auth = (...requiredRole: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +13,10 @@ const auth = (...requiredRole: string[]) => {
       throw new Error('You are not Authorized');
     }
 
-    const decoded = jwt.verify(token, 'secret') as JwtPayload;
+    const decoded = jwt.verify(
+      token,
+      config.jwt_access_token as string,
+    ) as JwtPayload;
 
     const { email, role } = decoded;
 
@@ -21,7 +25,10 @@ const auth = (...requiredRole: string[]) => {
     if (!user) {
       throw new Error('User not found');
     }
-    if (requiredRole && !requiredRole.includes) {
+    // if (requiredRole && !requiredRole.includes) {
+    //   throw new Error('You are not authorized');
+    // }
+    if (requiredRole.length > 0 && !requiredRole.includes(role)) {
       throw new Error('You are not authorized');
     }
 

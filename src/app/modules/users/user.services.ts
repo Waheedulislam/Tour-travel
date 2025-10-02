@@ -10,6 +10,7 @@ const getUser = async () => {
   const result = await User.find();
   return result;
 };
+//get all user
 const getSingleUser = async (id: string) => {
   const result = await User.findById(id);
   return result;

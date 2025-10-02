@@ -9,6 +9,7 @@ import authRouter from './app/modules/auth/auth.route';
 dotenv.config();
 
 import cookieParser from 'cookie-parser';
+import quizRouter from './app/modules/quiz/quiz.route';
 
 const app: Application = express();
 
@@ -16,12 +17,13 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(cors());
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/tour', tourRouter);
 app.use('/api/booking', bookingRouter);
+app.use('/api/quiz', quizRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
